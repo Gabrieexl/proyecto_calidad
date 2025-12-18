@@ -1,9 +1,8 @@
 "use client";
 
-import { getFirestore, collection, getDocs, query, orderBy, limit, startAfter, startAt, DocumentData, QueryDocumentSnapshot, } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, orderBy, limit, startAfter, startAt, DocumentData, QueryDocumentSnapshot,doc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
 import { app } from "../utils/firebase";
 import { useEffect, useState } from "react";
-import { doc, deleteDoc, updateDoc, addDoc } from "firebase/firestore";
 import { Pencil, Trash2, X, UserPlus, FileDown } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
