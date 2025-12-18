@@ -130,7 +130,7 @@ export default function Clients() {
 
   // Eliminar cliente
   const handleEliminar = async (id: string) => {
-    if (!window.confirm("¿Seguro que deseas eliminar este cliente?")) return;
+    if (!globalThis.confirm("¿Seguro que deseas eliminar este cliente?")) return;
     const db = getFirestore(app);
     await deleteDoc(doc(db, "clientes", id));
     setClientes((prev) => prev.filter((c) => c.id !== id));
