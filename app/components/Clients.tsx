@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Pencil, Trash2, X, UserPlus, FileDown } from "lucide-react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import { db } from "@/app/utils/firebase"; 
 
 interface Cliente {
   id: string;
