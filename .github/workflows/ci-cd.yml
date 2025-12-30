@@ -37,17 +37,19 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Install CLIs (firebase + vercel)
+        run: |
+          npm i -g firebase-tools@15.1.0 vercel@latest
+
       # --- Firebase (rules + indexes) ---
       - name: Firebase deploy (rules + indexes)
         env:
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          cat > service-account.json <<'EOF'
-          $FIREBASE_SERVICE_ACCOUNT
-          EOF
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > service-account.json
           export GOOGLE_APPLICATION_CREDENTIALS="$PWD/service-account.json"
-          npx firebase deploy --only firestore:rules,firestore:indexes --project "$FIREBASE_PROJECT_ID"
+          firebase deploy --only firestore:rules,firestore:indexes --project "$FIREBASE_PROJECT_ID"
 
       # --- Vercel (Next.js) ---
       - name: Deploy Vercel (Production)
@@ -56,6 +58,6 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          npx vercel build --prod --token="$VERCEL_TOKEN"
-          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+          vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          vercel build --prod --token="$VERCEL_TOKEN"
+          vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
