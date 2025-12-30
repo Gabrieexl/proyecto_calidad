@@ -15,6 +15,7 @@
     "file-saver": "^2.0.5",
     "file-server": "^2.2.1",
     "firebase": "^11.10.0",
+    "firebase-admin": "^13.6.0",
     "jspdf": "^3.0.1",
     "lucide-react": "^0.525.0",
     "next": "15.3.8",
