@@ -322,31 +322,32 @@ export default function Reports() {
                                 </div>
 
                                 {/* Lista de clientes */}
-                                <div className="flex-1 mb-4">
-                                    <div className="text-xs text-gray-600 mb-2 font-medium">
-                                        {Array.isArray(reporte.clientes) && reporte.clientes.length > 0
-                                            ? `${reporte.clientes.length} cliente${reporte.clientes.length > 1 ? 's' : ''}`
-                                            : 'PDF disponible'}
-                                    </div>
-                                    <div className="space-y-1 max-h-20 overflow-y-auto">
-                                        {Array.isArray(reporte.clientes) && reporte.clientes.length > 0
-                                            ? reporte.clientes.slice(0, 3).map((cliente, i) => (
-                                                <div
-                                                    key={i}
-                                                    className="bg-yellow-50 rounded px-2 py-1 text-xs text-gray-700 border border-yellow-100"
-                                                >
-                                                    <span className="font-medium truncate block">
-                                                        {cliente.nombre || cliente.id}
-                                                    </span>
+                                <div 
+                                    className="flex-1 mb-4">
+                                        <div className="text-xs text-gray-600 mb-2 font-medium">
+                                            {Array.isArray(reporte.clientes) && reporte.clientes.length > 0
+                                                ? `${reporte.clientes.length} cliente${reporte.clientes.length > 1 ? 's' : ''}`
+                                                : 'PDF disponible'}
+                                        </div>
+                                        <div className="space-y-1 max-h-20 overflow-y-auto">
+                                            {Array.isArray(reporte.clientes) && reporte.clientes.length > 0
+                                                ? reporte.clientes.slice(0, 3).map((cliente, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="bg-yellow-50 rounded px-2 py-1 text-xs text-gray-700 border border-yellow-100"
+                                                    >
+                                                        <span className="font-medium truncate block">
+                                                            {cliente.nombre || cliente.id}
+                                                        </span>
+                                                    </div>
+                                                ))
+                                                : null}
+                                            {Array.isArray(reporte.clientes) && reporte.clientes.length > 3 && (
+                                                <div className="text-xs text-gray-500 italic px-2">
+                                                    +{reporte.clientes.length - 3} más...
                                                 </div>
-                                            ))
-                                            : null}
-                                        {Array.isArray(reporte.clientes) && reporte.clientes.length > 3 && (
-                                            <div className="text-xs text-gray-500 italic px-2">
-                                                +{reporte.clientes.length - 3} más...
-                                            </div>
-                                        )}
-                                    </div>
+                                            )}
+                                        </div>
                                 </div>
 
                                 {/* Botones de acción */}
@@ -413,6 +414,12 @@ export default function Reports() {
                     className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4" 
                     aria-modal="true" 
                     role="dialog"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if ((e.key === 'Enter' || e.key === ' ') && e.target === e.currentTarget && !isLoading) {
+                            setShowModal(false);
+                        }
+                    }}
                     onClick={(e) => {
                         if (e.target === e.currentTarget && !isLoading) {
                             setShowModal(false);
@@ -482,9 +489,17 @@ export default function Reports() {
                                             <label 
                                                 key={cliente.id} 
                                                 className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200"
+                                                tabIndex={0}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter' || e.key === ' ') {
+                                                        e.preventDefault(); // Evita scroll con espacio
+                                                        handleCheckboxChange(cliente.id);
+                                                    }
+                                                }}
                                             >
                                                 <input
                                                     type="checkbox"
+                                                    tabIndex={-1} // Evita doble enfoque (ya enfocamos el label)
                                                     checked={selectedClientes.includes(cliente.id)}
                                                     onChange={() => handleCheckboxChange(cliente.id)}
                                                     className="w-4 h-4 text-yellow-500 rounded border-gray-300 focus:ring-yellow-400 focus:ring-2"

@@ -6,6 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "type-check": "tsc --noEmit",
+    "quality": "npm run lint && npm run type-check && npm run build",
     "lint": "next lint"
   },
   "dependencies": {
