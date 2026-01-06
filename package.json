@@ -10,6 +10,7 @@
     "quality": "npm run lint && npm run type-check && npm run build",
     "test:e2e": "node tests/e2e/login.e2e.js",
     "test:e2e:guard": "node tests/e2e/dashboard-guard.e2e.js",
+    "test:e2e:clientes": "node tests/e2e/clientes-busqueda.e2e.js",
     "lint": "next lint"
   },
   "dependencies": {
