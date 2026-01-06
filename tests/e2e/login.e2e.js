@@ -9,7 +9,6 @@ require("chromedriver");
   const PASSWORD = process.env.E2E_PASSWORD;
 
   if (!EMAIL || !PASSWORD) {
-    console.error("Faltan variables: E2E_EMAIL y E2E_PASSWORD");
     process.exit(1);
   }
 
@@ -40,10 +39,8 @@ require("chromedriver");
       return url.includes("/dashboard");
     }, 20000);
 
-    console.log("✅ PRUEBA OK: Login redirige a /dashboard");
     process.exit(0);
   } catch (err) {
-    console.error("❌ PRUEBA FALLÓ:", err);
     process.exit(1);
   } finally {
     await driver.quit();
