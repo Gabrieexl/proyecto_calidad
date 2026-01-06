@@ -475,6 +475,7 @@ export default function Clients() {
 }
 
 console.log("debug clientes");
+console.log("debug clientes");
 
 
 
