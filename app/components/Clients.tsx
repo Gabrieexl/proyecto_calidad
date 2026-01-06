@@ -474,6 +474,53 @@ export default function Clients() {
   );
 }
 
+console.log("debug clientes");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Animaciones TailwindCSS (agrega en tu CSS global si usas Tailwind)
 @layer utilities {
   .animate-fade-in {
